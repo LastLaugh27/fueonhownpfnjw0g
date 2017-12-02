@@ -12,20 +12,19 @@ var bot = new Discord.Client({ token: auth.token, autorun: true });
 bot.on('ready', function (evt) {
   console.log('Cookiebot online!');
   bot.setPresence({game: {name: 'baking cookies'}});
-  
-  
 });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
   var canGive = false;
   
+  //Determines is the current user is allowed to give out cookies
   for(i in givers)
   {
     if(userID === givers[i])
       canGive = true;
   }
   
-  
+  //Command handler
   if (message.substring(0, 1) == '!')
   {
   	var args = message.substring(1).split(' ');
@@ -33,6 +32,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     var temp = args[1];
     var id = '';
     
+    //Takes the userID from the ping in the call
     for(i in temp)
     {
       if((i > 2) && (i < (temp.length - 1)))
@@ -43,10 +43,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     switch (cmd) {
       case 'givecookie':
-        bot.sendMessage({
-          to: channelID,
-          message: giveCookie(id, channelID)
-        });
+        if(canGive)
+        {
+          bot.sendMessage({
+            to: channelID,
+            message: giveCookie(id, channelID)
+          });
+          canGive = false;
+        }
       break;
 
       case 'cookies':
