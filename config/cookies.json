@@ -1,0 +1,55 @@
+{
+  "special":
+  [
+    {
+      "name":"Starter Cookie",
+      "desc":"A plain cookie, but it's special because its your first. What a fine way to start a cookie adventure!",
+      "dropChance":-1
+    },
+    {
+      "name":"Opie's Magic Cookie",
+      "desc":"A magical non-sexualized cookie baked by Opie",
+      "dropChance":69
+    },
+    {
+      "name":"Bacon Cookie",
+      "desc":"A normal choclate chip cookie that smells faintly of *ham*...",
+      "dropChance":69
+    },
+    {
+      "name":"Slimy Cookie",
+      "desc":"A well-dressed cookie covered in green slime.",
+      "dropChance":69
+    },
+    {
+      "name":"Mountain Cookie",
+      "desc":"A well-*test*ed staple in the diet of the hill people",
+      "dropChance":69
+    },
+    {
+      "name":"Guardian Cookie",
+      "desc":"A blue green cookie that's wet. Smells of salt and hardwork. Tastes like fish",
+      "dropChance":69
+    },
+    {
+      "name":"Anime Cookie",
+      "desc":"Nyaaa~ this cookie is decorated with a penguin and a neko (TN: neko means cat)",
+      "dropChance":69
+    },
+    {
+      "name":"Fallen Cookie",
+      "desc":"This once proud cookie has fallen. Maybe someday it'll return to glory...",
+      "dropChance":69
+    },
+    {
+      "name":"Black and White Cookie",
+      "desc":"Covered in black and white frosting. Kinda looks like a *panda*",
+      "dropChance":69
+    }
+  ],
+  "normal":
+  {
+    "name":"Standard Cookie",
+    "desc":"just a plain everyday cookie"
+  }
+}
