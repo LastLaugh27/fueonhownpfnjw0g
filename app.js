@@ -93,11 +93,11 @@ function giveCookie(id, channelID)
 
           fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
 
-          return ":cookie: Gave **<@" + id + ">** a rare **" + cookies.special[special].name + "**!"
+          return ":cookie: Gave **<@!" + id + ">** a rare **" + cookies.special[special].name + "**!"
         }
       }
       fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
-      return ":cookie: Gave **<@" + id + ">** 1 cookie!"
+      return ":cookie: Gave **<@!" + id + ">** 1 cookie!"
     }
   }
 
@@ -112,7 +112,7 @@ function giveCookie(id, channelID)
 
   fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
 
-  return ":cookie: Gave **<@" + id + ">** 1 cookie and added them to the list!"
+  return ":cookie: Gave **<@!" + id + ">** 1 cookie and added them to the list!"
 }
 
 function displayCookies(id, channelID)
@@ -128,7 +128,7 @@ function displayCookies(id, channelID)
   {
     if(users[i].id === id)
     {
-      var temp = "User Info:\nUsername: **<@" + id + ">**\nCookies: " + users[i].cookies
+      var temp = "User Info:\nUsername: **<@!" + id + ">**\nCookies: " + users[i].cookies
 
       for(j in users[i].specialCookies)
       {
@@ -145,5 +145,5 @@ function displayCookies(id, channelID)
     }
   }
 
-  return "Sorry, <@" + id + "> does not have any cookies :("
+  return "Sorry, <@!" + id + "> does not have any cookies :("
 }
