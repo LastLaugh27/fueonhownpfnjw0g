@@ -35,7 +35,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     //Takes the userID from the ping in the call
     for(i in temp)
     {
-      if((i > 2) && (i < (temp.length - 1)))
+      if((i > 1) && (i < (temp.length - 1)))
       {
         id = id + args[1][i];
       }
