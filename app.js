@@ -33,29 +33,27 @@ bot.on('ready', () =>
   console.log('Logged into Discord!');
 });
 
-<<<<<<< HEAD
 bot.on('message', function (message) {
   if (message.content.substring(0, 1) == '!')
-=======
-bot.on('message', function (user, userID, channelID, message, evt) {
+
+  bot.on('message', function (user, userID, channelID, message, evt) {
   var canGive = false;
-  
+
   //Determines is the current user is allowed to give out cookies
   for(i in givers)
   {
     if(userID === givers[i])
       canGive = true;
   }
-  
+
   //Command handler
   if (message.substring(0, 1) == '!')
->>>>>>> 44ee62554ca26524e873dbac654af3fc869a262e
   {
   	var args = message.content.substring(1).split(' ');
   	var cmd = args[0].toLowerCase();
     var temp = args[1];
     var id = '';
-    
+
     //Takes the userID from the ping in the call
     for(i in temp)
     {
@@ -67,18 +65,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     switch (cmd) {
       case 'givecookie':
-<<<<<<< HEAD
-        message.channel.send(giveCookie(id))
-=======
         if(canGive)
         {
-          bot.sendMessage({
-            to: channelID,
-            message: giveCookie(id, channelID)
-          });
+          message.channel.send(giveCookie(id))
           canGive = false;
         }
->>>>>>> 44ee62554ca26524e873dbac654af3fc869a262e
       break;
 
       case 'cookies':
@@ -87,15 +78,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         {
           id = message.author.id;
         }
-<<<<<<< HEAD
         message.channel.send(displayCookies(id));
-=======
-
-        bot.sendMessage({
-          to:channelID,
-          message: displayCookies(id, channelID)
-        });
->>>>>>> 44ee62554ca26524e873dbac654af3fc869a262e
       break;
     }
   }
@@ -124,20 +107,11 @@ function giveCookie(id, channelID)
           users[i].specialCookies.push(cookies.special[special].name)
 
           fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
-
-<<<<<<< HEAD
           return "Gave <@" + id + "> a **rare** " + cookies.special[special].name + "!"
         }
       }
       fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
       return "Gave <@" + id + "> 1 cookie!"
-=======
-          return ":cookie: Gave **<@!" + id + ">** a rare **" + cookies.special[special].name + "**!"
-        }
-      }
-      fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
-      return ":cookie: Gave **<@!" + id + ">** 1 cookie!"
->>>>>>> 44ee62554ca26524e873dbac654af3fc869a262e
     }
   }
 
@@ -152,11 +126,7 @@ function giveCookie(id, channelID)
 
   fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
 
-<<<<<<< HEAD
   return "Gave <@" + id + "> 1 cookie and added them to the list!"
-=======
-  return ":cookie: Gave **<@!" + id + ">** 1 cookie and added them to the list!"
->>>>>>> 44ee62554ca26524e873dbac654af3fc869a262e
 }
 
 function displayCookies(id, channelID)
@@ -178,11 +148,7 @@ function displayCookies(id, channelID)
   {
     if(users[i].id === id)
     {
-<<<<<<< HEAD
       var temp = "User Info:\nUsername: <@" + users[i].id + ">\nCookies: " + users[i].cookies
-=======
-      var temp = "User Info:\nUsername: **<@!" + id + ">**\nCookies: " + users[i].cookies
->>>>>>> 44ee62554ca26524e873dbac654af3fc869a262e
 
       for(j in users[i].specialCookies)
       {
