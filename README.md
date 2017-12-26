@@ -11,3 +11,9 @@ A Discord bot that gives out and keeps track of cookies. Uses a permissions syst
 * **auth.json** : store the bots token here (needed to access Discord)
 * **givers.json** : Who can give out cookies
 * everything else is used and editied from the bot
+
+## dependancies
+
+* **discord.js**: to connect to discord
+* **fs**: to store the JSON in such a way that it updates without triggering NodeJS' cache
+* **random-int**: for RNG
