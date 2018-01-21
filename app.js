@@ -52,7 +52,10 @@ bot.on('message', function (message) {
     var args = message.content.substring(1).split(' ');
     var cmd = args[0].toLowerCase();
     var temp = args[1];
-    var id = temp.replace(/[<@!>]/g, '');
+    var id = '';
+
+    if(temp !== undefined)
+      id = temp.replace(/[<@!>]/g, '');
 
     switch (cmd) {
       case 'givecookie':
@@ -118,7 +121,7 @@ function giveCookie(id, channelID)
         }
       }
       fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
-      return 🍪 "Gave <@" + id + "> 1 cookie!"
+      return "🍪  Gave <@" + id + "> 1 cookie!"
     }
   }
 
