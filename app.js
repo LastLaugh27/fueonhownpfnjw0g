@@ -31,40 +31,34 @@ bot.login(auth.token);
 bot.on('ready', () =>
 {
   console.log('Logged into Discord!');
+  console.log('Ready to dispense cookies!')
 });
 
 bot.on('message', function (message) {
   if (message.content.substring(0, 1) == '!')
-
-  bot.on('message', function (user, userID, channelID, message, evt) {
   var canGive = false;
 
   //Determines is the current user is allowed to give out cookies
   for(i in givers)
   {
-    if(userID === givers[i])
+    if(message.author.id === givers[i])
       canGive = true;
   }
 
+  canGive = true;
+
   //Command handler
-  if (message.substring(0, 1) == '!')
+  if (message.content.substring(0, 1) == '!')
   {
   	var args = message.content.substring(1).split(' ');
   	var cmd = args[0].toLowerCase();
     var temp = args[1];
-    var id = '';
-
-    //Takes the userID from the ping in the call
-    for(i in temp)
-    {
-      if((i > 1) && (i < (temp.length - 1)))
-      {
-        id = id + args[1][i];
-      }
-    }
+    var id = temp.replace(/[<@!>]/g, '');
 
     switch (cmd) {
       case 'givecookie':
+      case 'give🍪':
+      case '🍪':
         if(canGive)
         {
           message.channel.send(giveCookie(id))
@@ -80,9 +74,23 @@ bot.on('message', function (message) {
         }
         message.channel.send(displayCookies(id));
       break;
+
+      case '2liter':
+        message.channel.send("Uuuuh 2 liter machine :b:roke, we got 1 liter tho")
+      break;
+
+      case '1liter':
+        message.channel.send("https://i.imgur.com/1Vuspjq.png")
+      break;
+
+      case 'tidepods':
+      case 'tidepod':
+        message.channel.send("https://www.youtube.com/watch?v=tb2Ct3yyB4g")
+      break;
     }
   }
 });
+
 
 function giveCookie(id, channelID)
 {
@@ -148,6 +156,7 @@ function displayCookies(id, channelID)
   {
     if(users[i].id === id)
     {
+
       var temp = "User Info:\nUsername: <@" + users[i].id + ">\nCookies: " + users[i].cookies
 
       for(j in users[i].specialCookies)
@@ -165,5 +174,5 @@ function displayCookies(id, channelID)
     }
   }
 
-  return "Sorry, <@!" + id + "> does not have any cookies :("
+  return "Sorry, <@" + id + "> does not have any cookies :("
 }
