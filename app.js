@@ -114,7 +114,23 @@ function giveCookie(id, channelID)
 
         if( randomInt(100) > (100 - cookies.special[special].dropChance) )
         {
-          users[i].specialCookies.push(cookies.special[special].name)
+
+          for(j in users[i].specialCookies)
+          {
+            if(users[i].specialCookies[j].name === cookies.special[special].name)
+            {
+              users[i].specialCookies[j].quantity++
+              fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
+              return "🍪 Gave <@" + id + "> a **rare** " + cookies.special[special].name + "!"
+            }
+
+          }
+          var newSpecial =
+          {
+            name: cookies.special[special].name,
+            quantity: 1,
+          }
+          users[i].specialCookies.push(newSpecial)
 
           fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8")
           return "🍪 Gave <@" + id + "> a **rare** " + cookies.special[special].name + "!"
@@ -158,20 +174,19 @@ function displayCookies(id, channelID)
   {
     if(users[i].id === id)
     {
-
       var temp = "User Info:\nUsername: <@" + users[i].id + ">\nCookies: " + users[i].cookies
 
       for(j in users[i].specialCookies)
       {
         if(j < 1)
         {
-          temp += "\nSpecial Cookies: " + users[i].specialCookies[j];
+          temp += "\nSpecial Cookies: " + users[i].specialCookies[j].name + " x " + users[i].specialCookies[j].quantity;
         }else
         {
-          temp += ", " + users[i].specialCookies[j];
+
+          temp += ", " + users[i].specialCookies[j].name + " x " + users[i].specialCookies[j].quantity;
         }
       }
-
       return temp;
     }
   }
