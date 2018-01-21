@@ -145,7 +145,7 @@ function giveCookie(id, channelID)
   {
     id: id,
     cookies: 1,
-    specialCookies: ["Starter Cookie"]
+    specialCookies: [{"name":"Starter Cookie","quantity":1}]
   }
 
   users.push(newUser);
