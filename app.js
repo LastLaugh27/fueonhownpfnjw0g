@@ -36,7 +36,6 @@ bot.on('ready', () =>
 
 bot.on('message', function (message) {
   if (message.content.substring(0, 1) == '!')
-  var canGive = false;
 
   //Determines is the current user is allowed to give out cookies
   for(i in givers)
@@ -50,8 +49,8 @@ bot.on('message', function (message) {
   //Command handler
   if (message.content.substring(0, 1) == '!')
   {
-  	var args = message.content.substring(1).split(' ');
-  	var cmd = args[0].toLowerCase();
+    var args = message.content.substring(1).split(' ');
+    var cmd = args[0].toLowerCase();
     var temp = args[1];
     var id = temp.replace(/[<@!>]/g, '');
 
