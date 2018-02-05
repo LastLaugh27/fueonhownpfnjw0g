@@ -89,6 +89,9 @@ bot.on('message', function (message) {
       case 'tidepod':
         message.channel.send("https://www.youtube.com/watch?v=tb2Ct3yyB4g")
       break;
+      case 'stealcookies':
+        message.channel.send(stealCookie(message.author.id, id));
+      break;
     }
   }
 });
@@ -155,7 +158,7 @@ function giveCookie(id, channelID)
   return "🍪 Gave <@" + id + "> 1 cookie and added them to the list!"
 }
 
-function displayCookies(id, channelID)
+function displayCookies(id)
 {
   var users = JSON.parse( fs.readFileSync("./config/userCookies.json", "utf8") );
 
@@ -192,4 +195,73 @@ function displayCookies(id, channelID)
   }
 
   return "Sorry, <@" + id + "> does not have any cookies :("
+}
+
+function stealCookie(robberId, victimId)
+{
+  var users = JSON.parse( fs.readFileSync("./config/userCookies.json", "utf8") );
+  var victim;
+  var robber;
+
+  if((victimId === '') || (/[a-z]/i.test(victimId)))
+  {
+    return "**Usage:** `!stealCookies @DiscordUsername`\nMake sure you're actuall @-ing them! (I rely on ids!)";
+  }
+
+  for(i in robberId)
+  {
+    if(robberId[i] === '!')
+      robberId = robberId.slice(0, i) + robberId.slice(i + 1, robberId.length)
+  }
+
+  for(i in victimId)
+  {
+    if(victimId[i] === '!')
+      victimId = victimId.slice(0, i) + victimId.slice(i + 1, victimId.length)
+  }
+
+  var victimIndex;
+  for(i in users)
+  {
+    if(users[i].id === victimId)
+    {
+      victim = users[i];
+      victimIndex = i;
+    }
+  }
+
+  var robberIndex;
+  for(i in users)
+  {
+    if(users[i].id === robberId)
+    {
+      robber = users[i];
+      robberIndex = i;
+    }
+  }
+
+  var amountToSteal = randomInt(victim.cookies / 2);
+  var stealChance = 0;
+
+  if(victim.cookies > robber.cookies)
+  {
+    stealChance = 10;
+  }else if(victim.cookies === robber.cookies)
+  {
+    stealChance = 50;
+  }else if(victim.cookies < robber.cookies)
+  {
+    stealChance = 90;
+  }
+
+  if(randomInt(100) >= stealChance)
+  {
+    users[victimIndex].cookies -= amountToSteal;
+    users[robberIndex].cookies += amountToSteal;
+    fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8");
+    return ":cookie: **Oh no! <@" + robber.id + "> stole " + amountToSteal + " cookies from <@" + victim.id + "> !**";
+  }else {
+    return ":cookie: **Oh no! <@" + robber.id + "> tried to steal " + amountToSteal + " cookies from <@" + victim.id + "> !**";
+  }
+
 }
