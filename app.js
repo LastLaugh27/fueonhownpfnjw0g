@@ -97,7 +97,7 @@ bot.on('message', function (message) {
 });
 
 
-function giveCookie(id, channelID)
+function giveCookie(id)
 {
   var users = JSON.parse( fs.readFileSync("./config/userCookies.json", "utf8") );
 
@@ -230,6 +230,14 @@ function stealCookie(robberId, victimId)
     }
   }
 
+  if(victim === undefined)
+  {
+    return "**YOU CAN'T STEAL FROM SOMEONE WHO DOESN'T HAVE ANY COOKIES!** :rage:";
+  }else if(victim.cookies === 0)
+  {
+    return "**:cookie: Looks like some has stolen all of <@" + victim.id + ">'s cookies...** :cry:";
+  }
+
   var robberIndex;
   for(i in users)
   {
@@ -240,8 +248,17 @@ function stealCookie(robberId, victimId)
     }
   }
 
-  var amountToSteal = randomInt(victim.cookies / 2);
-  var stealChance = 0;
+  if(robber === undefined)
+  {
+    return "Sorry, you must have been given a cookie to start the game :cry:"
+  }
+
+	var amountToSteal = randomInt(victim.cookies / 2);
+
+	if(amountToSteal === 0)
+		amountToSteal = 1;
+
+	var stealChance = 0;
 
   if(victim.cookies > robber.cookies)
   {
@@ -258,10 +275,26 @@ function stealCookie(robberId, victimId)
   {
     users[victimIndex].cookies -= amountToSteal;
     users[robberIndex].cookies += amountToSteal;
-    fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8");
-    return ":cookie: **Oh no! <@" + robber.id + "> stole " + amountToSteal + " cookies from <@" + victim.id + "> !**";
+
+    switch(amountToSteal)
+    {
+      case 1:
+        fs.writeFileSync("./config/userCookies.json", JSON.stringify(users), "utf8");
+        return ":cookie: **Oh no! <@" + robber.id + "> stole " + amountToSteal + " cookie from <@" + victim.id + "> !**";
+        break;
+      default:
+        return ":cookie: **Oh no! <@" + robber.id + "> stole " + amountToSteal + " cookies from <@" + victim.id + "> !**";
+    }
+
   }else {
-    return ":cookie: **Oh no! <@" + robber.id + "> tried to steal " + amountToSteal + " cookies from <@" + victim.id + "> !**";
+    switch (amountToSteal)
+    {
+      case 1:
+        return ":cookie: **Oh no! <@" + robber.id + "> tried to steal " + amountToSteal + " cookie from <@" + victim.id + "> !**";
+        break;
+      default:
+        return ":cookie: **Oh no! <@" + robber.id + "> tried to steal " + amountToSteal + " cookies from <@" + victim.id + "> !**";
+    }
   }
 
 }
